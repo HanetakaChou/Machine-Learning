@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CopyFileToFolders Include="..\thirdparty\OpenBLAS\bin\libopenblas.dll">
+      <Filter>thirdparty</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\thirdparty\TensorFlow-Lite\bin\tensorflowlite_c.dll">
+      <Filter>thirdparty</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\thirdparty\Python3\bin\python39.dll">
+      <Filter>thirdparty</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="thirdparty">
+      <UniqueIdentifier>{307d858d-38be-46ef-b1b0-629832564f6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{efdf7315-4719-4148-85f1-bc8359ce72a8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\TensorFlow\Reinforcement-Learning\inference-main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

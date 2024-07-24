@@ -1,0 +1,21 @@
+name: Build BLAS Linux
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app_debug: [true, false]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+      - shell: bash
+        run: |
+          make -C ./build -f BLAS.mk APP_DEBUG=${{matrix.app_debug}} -j$(nproc)

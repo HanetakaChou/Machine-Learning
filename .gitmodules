@@ -1,0 +1,17 @@
+[submodule "thirdparty/OpenBLAS"]
+	path = thirdparty/OpenBLAS
+	url = git@github.com:HanetakaChou/Machine-Learning.git
+	branch = OpenBLAS
+[submodule "thirdparty/OpenCL-ICD-Loader"]
+	path = thirdparty/OpenCL-ICD-Loader
+	url = git@github.com:HanetakaChou/Machine-Learning.git
+	branch = OpenCL-ICD-Loader
+[submodule "thirdparty/Python3"]
+	path = thirdparty/Python3
+	url = git@github.com:HanetakaChou/Machine-Learning.git
+	branch = Python3
+[submodule "thirdparty/TensorFlow-Lite"]
+	path = thirdparty/TensorFlow-Lite
+	url = git@github.com:HanetakaChou/Machine-Learning.git
+	branch = TensorFlow-Lite
+
