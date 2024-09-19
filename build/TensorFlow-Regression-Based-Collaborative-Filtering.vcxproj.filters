@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CopyFileToFolders Include="..\third-party\TensorFlow-Lite\bin\tensorflowlite_c.dll">
+      <Filter>third-party</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\third-party\OpenBLAS\bin\libopenblas.dll">
+      <Filter>third-party</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="code">
+      <UniqueIdentifier>{5f0085c5-b08c-47c4-b979-feab65910d34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third-party">
+      <UniqueIdentifier>{f72c91c0-a3f1-407a-9dd9-4b7f975a6b66}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\code\TensorFlow\Collaborative-Filtering\regression-inference-main.cpp">
+      <Filter>code</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
