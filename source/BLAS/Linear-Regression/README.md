@@ -33,6 +33,8 @@ The $\displaystyle \sum_i^m {\left\lparen y^{(i)} - X^{(i)}\theta \right\rparen}
 
 We select the half of the **MSE (Mean Squared Error)** as the **square error cost function** $\displaystyle \mathop{\mathrm{J}}(\theta) = \frac{1}{2} \mathop{\mathrm{MSE}}(\theta) = \frac{1}{2 m} {(y - X\theta)}^T(y - X\theta)$, and we can calculate the **gradient** more conveniently, since the "2" can be reduced $\displaystyle \nabla \mathop{\mathrm{J}}(\theta) = \frac{\partial \mathop{\mathrm{J}}(\theta)}{\partial \theta} = \frac{1}{m} ( {X^T} X \theta - {X^T} y)$. The problem has been converted to find the **minimum** of the **square error cost function**.  
 
+It should be noted that the **loss function** $\displaystyle {(y - X\theta)}^T(y - X\theta)$ is for the single **training example**, while the **cost function** $\displaystyle \mathop{\mathrm{J}}(\theta) = \frac{1}{2} \mathop{\mathrm{MSE}}(\theta)$ is for the whole **training set**. 
+
 ## Normal Equation (Analytical)  
 
 The **normal equation** is based on the **OLS (Ordinary Least Squares)**.  

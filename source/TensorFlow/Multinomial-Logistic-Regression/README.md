@@ -38,15 +38,17 @@ For the **multiclass classification**, we have the **probability** of the i-th *
 
 We assume these m **training examples** are **independent**, and we have the **log-likelihood function** $\displaystyle \ln \mathop{\mathcal{L}}(\theta) = \ln \left\lparen \prod_{i=1}^m \mathop{\mathrm{P^{(i)}}}(\theta) \right\rparen = \ln \left\lparen \prod_{i=1}^m \frac{\displaystyle \exp(X^{(i)} \theta_{y^{(i)}})}{\displaystyle \sum_{n=1}^K \exp(X^{(i)} \theta_n)} \right\rparen = - m \left\lparen - \frac{1}{m} \sum_{i=1}^m \left\lparen X^{(i)} \theta_{y^{(i)}} - \ln \left\lparen \sum_{n=1}^K \exp \left\lparen X^{(i)} \theta_n \right\rparen \right\rparen \right\rparen \right\rparen$.  
 
-The $\displaystyle \mathop{\mathrm{H}}(\theta) = - \frac{1}{m} \sum_{i=1}^m \left\lparen X^{(i)} \theta_{y^{(i)}} - \ln \left\lparen \sum_{n=1}^K \exp \left\lparen X^{(i)} \theta_n \right\rparen \right\rparen \right\rparen$ term is also called the **cross-entropy loss function**. We need to **minimize** the **cross-entropy loss function** to **maximize** the **log-likelihood function**. The problem has been converted to find the **minimize** of the **cross-entropy loss function**.   
+The $\displaystyle \mathop{\mathrm{H}}(\theta) = - \frac{1}{m} \sum_{i=1}^m \left\lparen X^{(i)} \theta_{y^{(i)}} - \ln \left\lparen \sum_{n=1}^K \exp \left\lparen X^{(i)} \theta_n \right\rparen \right\rparen \right\rparen$ term is also called the **categorical cross-entropy function**. We need to **minimize** the **categorical cross-entropy function** to **maximize** the **log-likelihood function**. The problem has been converted to find the **minimize** of the **categorical cross-entropy function**.   
 
 ## Cost Function  
 
-We select the **cross-entropy loss function** as the **cost function** $\displaystyle \mathop{\mathrm{J}}(\theta) = \mathop{\mathrm{H}}(\theta) = - \frac{1}{m} \sum_{i=1}^m \left\lparen X^{(i)} \theta_{y^{(i)}} - \ln \left\lparen \sum_{n=1}^K \exp \left\lparen X^{(i)} \theta_n \right\rparen \right\rparen \right\rparen$, and we have the **gradient** $\displaystyle \nabla \mathop{\mathrm{J}}(\theta)_k = \frac{\partial \mathop{\mathrm{J}}(\theta)}{\partial \theta_k} = \frac{1}{m} \sum_{i=1}^m X^{(i)} \left\lparen \frac{\displaystyle \exp(X^{(i)} \theta_k)}{\displaystyle \sum_{n=1}^K \exp(X^{(i)} \theta_n)} - \left\lbrack y^{(i)} = k \right\rbrack \right\rparen = \frac{1}{m} \sum_{i=1}^m X^{(i)} \left\lparen \mathop{\mathrm{P}}(y = k) - \left\lbrack y^{(i)} = k \right\rbrack \right\rparen$.  
+We select the **categorical cross-entropy function** as the **cost function** $\displaystyle \mathop{\mathrm{J}}(\theta) = \mathop{\mathrm{H}}(\theta) = - \frac{1}{m} \sum_{i=1}^m \left\lparen X^{(i)} \theta_{y^{(i)}} - \ln \left\lparen \sum_{n=1}^K \exp \left\lparen X^{(i)} \theta_n \right\rparen \right\rparen \right\rparen$, and we have the **gradient** $\displaystyle \nabla \mathop{\mathrm{J}}(\theta)_k = \frac{\partial \mathop{\mathrm{J}}(\theta)}{\partial \theta_k} = \frac{1}{m} \sum_{i=1}^m X^{(i)} \left\lparen \frac{\displaystyle \exp(X^{(i)} \theta_k)}{\displaystyle \sum_{n=1}^K \exp(X^{(i)} \theta_n)} - \left\lbrack y^{(i)} = k \right\rbrack \right\rparen = \frac{1}{m} \sum_{i=1}^m X^{(i)} \left\lparen \mathop{\mathrm{P}}(y = k) - \left\lbrack y^{(i)} = k \right\rbrack \right\rparen$.  
+
+It should be noted that the **loss function** $\displaystyle \left\lparen X^{(i)} \theta_{y^{(i)}} - \ln \left\lparen \sum_{n=1}^K \exp \left\lparen X^{(i)} \theta_n \right\rparen \right\rparen \right\rparen$ is for the single **training example**, while the **cost function** $\displaystyle \mathop{\mathrm{J}}(\theta) = \mathop{\mathrm{H}}(\theta)$ is for the whole **training set**.  
 
 ## Convex Optimization  
 
-Fortunately, the **cross-entropy loss function** is **convex**.  
+Fortunately, the **categorical cross-entropy cost function** is **convex**.  
 
 ## L2 Regularization (Ridge Regularization)  
 

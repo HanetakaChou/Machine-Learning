@@ -38,15 +38,17 @@ For the **binary classification**, we have $\displaystyle \mathop{\mathrm{P}}(y 
 
 We assume these m **training examples** are **independent**, and we have the **log-likelihood function** $\displaystyle \ln \mathop{\mathcal{L}}(\theta) = \ln \left\lparen \prod_{i=1}^m \mathop{\mathrm{P^{(i)}}}(\theta) \right\rparen = \ln \left\lparen \prod_{i=1}^m {\hat{y}}^{y^{(i)}} \cdot {(1 - \hat{y})}^{1 - y^{(i)}} \right\rparen = - m \left\lparen - \frac{1}{m} \sum_{i=1}^m \left\lparen y^{(i)} \ln (\hat{y}) + (1 -  y^{(i)}) \ln(1 - \hat{y}) \right\rparen \right\rparen$.  
 
-The $\displaystyle \mathop{\mathrm{H}}(\theta) = - \frac{1}{m} \sum_{i=1}^m \left\lparen y^{(i)} \ln (\hat{y}) + (1 -  y^{(i)}) \ln(1 - \hat{y}) \right\rparen$ term is also called the **cross-entropy loss function**. We need to **minimize** the **cross-entropy loss function** to **maximize** the **log-likelihood function**. The problem has been converted to find the **minimize** of the **cross-entropy loss function**.   
+The $\displaystyle \mathop{\mathrm{H}}(\theta) = - \frac{1}{m} \sum_{i=1}^m \left\lparen y^{(i)} \ln (\hat{y}) + (1 -  y^{(i)}) \ln(1 - \hat{y}) \right\rparen$ term is also called the **cross-entropy function**. We need to **minimize** the **cross-entropy function** to **maximize** the **log-likelihood function**. The problem has been converted to find the **minimize** of the **cross-entropy function**.   
 
 ## Cost Function  
 
-We select the **cross-entropy loss function** as the **cost function** $\displaystyle \mathop{\mathrm{J}}(\theta) = \mathop{\mathrm{H}}(\theta) = - \frac{1}{m} \sum_i^m \left\lparen y^{(i)} \ln (\hat{y}) + (1 -  y^{(i)}) \ln(1 - \hat{y}) \right\rparen$, and we have the **gradient** $\displaystyle \nabla \mathop{\mathrm{J}}(\theta) = \frac{\partial \mathop{\mathrm{J}}(\theta)}{\partial \theta} = \frac{1}{m} \sum_{i=1}^m \left\lparen X^{(i)} ({\hat{y}}^{(i)} - y^{(i)}) \right\rparen = \frac{1}{m} X^T (\mathop{\mathrm{\sigma}}(X \theta)- y) = \frac{1}{m} X^T (\mathop{\mathrm{\sigma}}(z)- y) = \frac{1}{m} X^T (\hat{y} - y) = \frac{1}{m} X^T \epsilon$.  
+We select the **cross-entropy function** as the **cost function** $\displaystyle \mathop{\mathrm{J}}(\theta) = \mathop{\mathrm{H}}(\theta) = - \frac{1}{m} \sum_i^m \left\lparen y^{(i)} \ln (\hat{y}) + (1 -  y^{(i)}) \ln(1 - \hat{y}) \right\rparen$, and we have the **gradient** $\displaystyle \nabla \mathop{\mathrm{J}}(\theta) = \frac{\partial \mathop{\mathrm{J}}(\theta)}{\partial \theta} = \frac{1}{m} \sum_{i=1}^m \left\lparen X^{(i)} ({\hat{y}}^{(i)} - y^{(i)}) \right\rparen = \frac{1}{m} X^T (\mathop{\mathrm{\sigma}}(X \theta)- y) = \frac{1}{m} X^T (\mathop{\mathrm{\sigma}}(z)- y) = \frac{1}{m} X^T (\hat{y} - y) = \frac{1}{m} X^T \epsilon$.  
+
+It should be noted that the **loss function** $\displaystyle \left\lparen y^{(i)} \ln (\hat{y}) + (1 -  y^{(i)}) \ln(1 - \hat{y}) \right\rparen$ is for the single **training example**, while the **cost function** $\displaystyle \mathop{\mathrm{J}}(\theta) = \mathop{\mathrm{H}}(\theta)$ is for the whole **training set**. 
 
 ## Convex Optimization  
 
-Fortunately, the **cross-entropy loss function** is **convex**.  
+Fortunately, the **cross-entropy cost function** is **convex**.  
 
 ## L2 Regularization (Ridge Regularization)  
 
