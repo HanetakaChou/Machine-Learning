@@ -69,7 +69,7 @@ Although there are some other improved variants of the **gradient descent**, suc
 
 Both the **normal equation** and the **Newton's method** try to find the **zero** of the **gradient** to find the **minimum**.  
 
-But it should be noted that the position, where the **gradient** is **zero**, is NOT necessarily the **minimum**, unless the function is **convex**.  
+But it should be noted that the position (the **local optimum**), where the **gradient** is **zero**, is NOT necessarily the **minimum** (the **global optimum**), unless the function is **convex**.  
 
 Actually, all the **normal equation**, the **gradient descent** and the **Newton's method** do NOT work for the **non-convex** function.  
 
