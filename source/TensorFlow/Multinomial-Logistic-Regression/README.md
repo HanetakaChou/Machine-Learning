@@ -2,9 +2,9 @@
 
 ## Softmax Function
 
-We have the **training data** of which y is the **target** (or **output**) **one-hot** 1 × K vector to represent the labels of the **K classes** of the **multiclass classification**, and X is n **features**  (or **inputs**).  
+We have the **training data** of which y is the **target** (or **output**) **one-hot** 1 × K vector to represent the labels of the **K classes** of the **multiclass classification**, and X is is n - 1 **features**  (or **inputs**) and 1 intercept Term.  
 
-We assume that the **probability** of the **class k** ($\displaystyle k = 1 \dots K$) can be modeled by the **softmax function** $\displaystyle \mathop{\mathrm{P}}(y = k) = \hat{y}_k = \mathop{\mathrm{softmax}}(X)_k = \frac{\displaystyle \exp(z_k)}{\displaystyle \sum_{n=1}^K \exp(z_n)} = \frac{\displaystyle \exp(X \theta_k)}{\displaystyle \sum_{n=1}^K \exp(X \theta_n)}$ of which $\displaystyle \hat{y}$ is the **prediction** (1 × K vector) which is estimated by our model and is evidently different from the original **target** y, and $\displaystyle \theta_k$ ($\displaystyle k = 1 \dots K$) is n **weights** which we would like to estimate.  
+We assume that the **probability** of the **class k** ($\displaystyle k = 1 \dots K$) can be modeled by the **softmax function** $\displaystyle \mathop{\mathrm{P}}(y = k) = \hat{y}_k = \mathop{\mathrm{softmax}}(X)_k = \frac{\displaystyle \exp(z_k)}{\displaystyle \sum_{n=1}^K \exp(z_n)} = \frac{\displaystyle \exp(X \theta_k)}{\displaystyle \sum_{n=1}^K \exp(X \theta_n)}$ of which $\displaystyle \hat{y}$ is the **prediction** (1 × K vector) which is estimated by our model and is evidently different from the original **target** y, and $\displaystyle \theta_k$ ($\displaystyle k = 1 \dots K$) is n **coefficients** (n - 1 **weights** and 1 **bias**) which we would like to estimate.  
 
 We have m **training examples**. This means that the dimension of y is m × K, and the dimension of X is m × n. 
 

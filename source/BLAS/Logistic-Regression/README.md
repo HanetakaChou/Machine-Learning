@@ -2,9 +2,9 @@
 
 ## Sigmoid Function
 
-We have the **training data** of which y is the **target** (or **output**) label of the **binary classification**, and X is n **features**  (or **inputs**).  
+We have the **training data** of which y is the **target** (or **output**) label of the **binary classification**, and X is n - 1 **features**  (or **inputs**) and 1 intercept Term.  
 
-We assume that the **probability** of the **class 1** can be modeled by the **sigmoid function** $\displaystyle \mathop{\mathrm{P}}(y = 1) = \hat{y} = \mathop{\mathrm{\sigma}}(z) = \mathop{\mathrm{\sigma}}(X \theta) = \frac{1}{1 + \exp(- (X \theta))}$ of which $\displaystyle \hat{y}$ is the **prediction** which is estimated by our model and should be distinguished from the original **target** y, and $\displaystyle \theta$ is n **weights** which we would like to estimate.  
+We assume that the **probability** of the **class 1** can be modeled by the **sigmoid function** $\displaystyle \mathop{\mathrm{P}}(y = 1) = \hat{y} = \mathop{\mathrm{\sigma}}(z) = \mathop{\mathrm{\sigma}}(X \theta) = \frac{1}{1 + \exp(- (X \theta))}$ of which $\displaystyle \hat{y}$ is the **prediction** which is estimated by our model and should be distinguished from the original **target** y, and $\displaystyle \theta$ is n **coefficients** (n - 1 **weights** and 1 **bias**) which we would like to estimate.  
 
 We have m **training examples**. This means that the dimension of y is m × 1, and the dimension of X is m × n. 
 
