@@ -122,6 +122,9 @@ Technically, the **loss function** is decoupled from the **activation function**
 
 Actually, based on the **chain rule** from mathematical, the tensorflow uses the **backward propagation** to calculate the gradient of each **neuron** to avoid redundant calculation. But the technique detail will NOT be involved here.  
 
+// computation graph  
+// gradient namely derivative  
+
 We can use the following source to complie the model and train the model by **gradient descent**.  
 
 ```python
