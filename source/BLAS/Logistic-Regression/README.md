@@ -4,7 +4,7 @@
 
 We have the **training data** of which y is the **target** (or **output**) label of the **binary classification**, and X is n - 1 **features**  (or **inputs**) and 1 intercept Term.  
 
-We assume that the **probability** of the **class 1** can be modeled by the **sigmoid function** $\displaystyle \mathop{\mathrm{P}}(y = 1) = \hat{y} = \mathop{\mathrm{\sigma}}(z) = \mathop{\mathrm{\sigma}}(X \theta) = \frac{1}{1 + \exp(- (X \theta))}$ of which $\displaystyle \hat{y}$ is the **prediction** which is estimated by our model and should be distinguished from the original **target** y, and $\displaystyle \theta$ is n **coefficients** (n - 1 **weights** and 1 **bias**) which we would like to estimate.  
+We assume that the **probability** of the **class 1** can be modeled by the **sigmoid function** $\displaystyle \mathop{\mathrm{P}}(y = 1 | x) = \hat{y} = \mathop{\mathrm{\sigma}}(z) = \mathop{\mathrm{\sigma}}(X \theta) = \frac{1}{1 + \exp(- (X \theta))}$ of which $\displaystyle \hat{y}$ is the **prediction** which is estimated by our model and should be distinguished from the original **target** y, and $\displaystyle \theta$ is n **coefficients** (n - 1 **weights** and 1 **bias**) which we would like to estimate.  
 
 We have m **training examples**. This means that the dimension of y is m × 1, and the dimension of X is m × n. 
 
@@ -37,6 +37,8 @@ For example, we have the **circular decision boundary** $\theta_1 + \theta_2 x_1
 For the **binary classification**, we have $\displaystyle \mathop{\mathrm{P}}(y = 0) + \mathop{\mathrm{P}}(y = 1) = 1$, and we have the **probability** of one single **training example** $\displaystyle \mathop{\mathrm{P^{(i)}}}(\theta) = \mathop{\mathrm{P^{(i)}}} (y = y^{(i)}) = \begin{cases} \hat{y} & y^{(i)} = 1 \\ 1 - \hat{y} & y^{(i)} = 0 \end{cases} = {\hat{y}}^{y^{(i)}} \cdot {(1 - \hat{y})}^{1 - y^{(i)}}$.  
 
 We assume these m **training examples** are **independent**, and we have the **log-likelihood function** $\displaystyle \ln \mathop{\mathcal{L}}(\theta) = \ln \left\lparen \prod_{i=1}^m \mathop{\mathrm{P^{(i)}}}(\theta) \right\rparen = \ln \left\lparen \prod_{i=1}^m {\hat{y}}^{y^{(i)}} \cdot {(1 - \hat{y})}^{1 - y^{(i)}} \right\rparen = - m \left\lparen - \frac{1}{m} \sum_{i=1}^m \left\lparen y^{(i)} \ln (\hat{y}) + (1 -  y^{(i)}) \ln(1 - \hat{y}) \right\rparen \right\rparen$.  
+
+Note: we add two negative operators here becuase usually we would like to **minimize** the loss function.  
 
 The $\displaystyle \mathop{\mathrm{H}}(\theta) = - \frac{1}{m} \sum_{i=1}^m \left\lparen y^{(i)} \ln (\hat{y}) + (1 -  y^{(i)}) \ln(1 - \hat{y}) \right\rparen$ term is also called the **cross-entropy function**. We need to **minimize** the **cross-entropy function** to **maximize** the **log-likelihood function**. The problem has been converted to find the **minimize** of the **cross-entropy function**.   
 
