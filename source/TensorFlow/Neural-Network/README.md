@@ -173,6 +173,11 @@ logit_prediction = keras_model.predict(X_test)
 prediction = numpy.argmax(logit_prediction, axis=1)
 ```
 
+# Broadcasting  
+
+[numpy - tail compatibility](https://numpy.org/doc/stable/user/basics.broadcasting.html#)  
+[octave - bsxfun](https://octave.sourceforge.io/octave/function/bsxfun.html)  
+
 // ===============
 
 // note that the **input_shape=(n,)** parameter of the keras layer is reversed the first number is the demension of the feature (the column) the second number is the number of the training examples and is  usually ommited  
