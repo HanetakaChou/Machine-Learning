@@ -54,6 +54,8 @@ cost_history = numpy.zeros(iteration_count)
 for t in range(iteration_count):
     linear_hyperplane = numpy.dot(X, theta)
     prediction = 1.0 / (1.0 + numpy.exp(-linear_hyperplane))
+    # use dot products to compute the two summed elementwise terms
+    # cross_entropy_loss_cost = -(1.0 / float(m)) * numpy.sum(y * numpy.log(prediction) + (1.0 - y) * numpy.log(1.0 - prediction))
     cross_entropy_loss_cost = -(1.0 / float(m)) * (numpy.dot(y, numpy.log(prediction)) + numpy.dot((1.0 - y), numpy.log(1.0 - prediction)))
     
     # l2_regularization_cost = (lambda_ / (2.0 * float(m))) * numpy.dot(theta[1:], theta[1:])
