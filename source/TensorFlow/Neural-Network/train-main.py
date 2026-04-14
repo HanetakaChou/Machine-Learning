@@ -1,6 +1,7 @@
 import os
+# os.environ["KERAS_BACKEND"] = "torch"
+import keras
 import numpy
-import tensorflow
 import matplotlib.pyplot
 
 # Learning Rate
@@ -28,11 +29,11 @@ y = numpy.array([
     1
 ])
 
-keras_model = tensorflow.keras.models.Sequential([
+keras_model = keras.models.Sequential([
     # Feature Scaling
-    tensorflow.keras.layers.Normalization(input_shape=(n,)), 
+    keras.layers.Normalization(input_shape=(n,)), 
     # Logistic Regression (We use "from_logits=True" to be more numerical stable)
-    tensorflow.keras.layers.Dense(units=1, activation="linear", kernel_initializer="zeros", bias_initializer="zeros")
+    keras.layers.Dense(units=1, activation="linear", kernel_initializer="zeros", bias_initializer="zeros")
 ])
 
 keras_model.layers[0].adapt(X)
@@ -45,10 +46,10 @@ Sigma_2_X = keras_normalization_layer_weights[1]
 print("Mu_X:", Mu_X)
 print("Sigma_2_X:", Sigma_2_X)
 
-keras_model.compile(optimizer=tensorflow.keras.optimizers.SGD(learning_rate=alpha), loss=tensorflow.keras.losses.BinaryCrossentropy(from_logits=True))
+keras_model.compile(optimizer=keras.optimizers.SGD(learning_rate=alpha), loss=keras.losses.BinaryCrossentropy(from_logits=True))
 
 # Gradient Descent Loop
-keras_history = keras_model.fit(X, y, epochs=iteration_count, callbacks=[ tensorflow.keras.callbacks.EarlyStopping(monitor='loss', min_delta=gamma)])
+keras_history = keras_model.fit(X, y, epochs=iteration_count, callbacks=[ keras.callbacks.EarlyStopping(monitor='loss', min_delta=gamma)])
 
 keras_dense_layer_weights = keras_model.layers[1].get_weights() 
 

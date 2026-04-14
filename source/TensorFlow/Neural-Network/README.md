@@ -1,4 +1,4 @@
-# Neural Network (NN)  
+# (Shallow) Neural Network (NN)  
 
 We will try to introduce the concepts of the **neural network** according to the [Keras](https://keras.io/) API.  
 
@@ -6,13 +6,52 @@ We will try to introduce the concepts of the **neural network** according to the
 
 The **neuron** is intrinsically to apply the **activation function** to the **logit** (namely, the **linear transform** of the inputs).  
  
-For the **linear regression**, the **activation function** is the identity transform, and the **logit** is exactly the **predictions**.  
+For the **hidden layer**, the **activation function** is usually the **ReLU (Rectified Linear Unit)** function.  
 
-For the **logistic regression**, the **activation function** is the **sigmoid function**, and the **logit** is the **linear hyperplane** (**decision boundary**).  
+For the **output layer**, for the **linear regression**, the **activation function** is the identity function, and the **logit** is exactly the **predictions**.
 
-### Layer  
+For the **output layer**, for the **logistic regression**, the **activation function** is the **sigmoid function**, and the **logit** is the **linear hyperplane** (**decision boundary**).  
 
-The **layer** consists of several **neurons** of which the **activation function** is the same. The number of the **logits** within the **layer** is exactly the same as the number of the **neurons**.  
+### (Non Linear) Activation Function
+
+The **hidden layer**, of which the **activation function** is **linear**, is equivalent to non-existence, since we can learn from mathematical that a linear function of a linear function is itself a linear function. This means that **linear** **activation function** should be avoided for the **hidden layer**.   
+
+#### ReLU (Rectified Linear Unit)  
+  
+However, the **sigmoid** **activation function** is also NOT a good choice for the **hidden layer**. Evidently, the amount of calculation of the **sigmoid** **activation function** is much more than the **linear** **activation function**. At the same time, the **sigmoid** **activation function** is almost flat for some places. We can learn from intuition that the **cost funtion** will consequently be flat for some places. This means that the gradient will be close to zero for some places, and this makes the **gradient descent** NOT efficient.  
+
+Thus, we introduce the **ReLU (Rectified Linear Unit)** **activation function** $\displaystyle a = \max (0, z)$ which is typically used for the **hidden layer**.  
+
+```python
+# ReLU activation function
+keras.layers.Dense(units=..., activation="relu", ...)
+```  
+
+#### Leaky ReLU  
+
+**Leaky ReLU** $\displaystyle a = \max (0, z) + \mathrm{negative\_slope} \cdot \min (z, 0)$  
+
+```python
+# Leaky ReLU activation function
+keras.layers.Dense(units=..., activation=keras.layers.LeakyReLU(negative_slope=0.3), ...)
+```
+
+#### Hyperbolic Tangent (tanh)  
+
+**Hyperbolic Tangent (tanh)** $\displaystyle a = \tanh(z) = - \mathrm{i} \cdot \tan (\mathrm{i} z) = - \mathrm{i} \cdot \frac{\displaystyle \frac{\displaystyle \exp(\mathrm{i} \cdot (\mathrm{i} z)) - \exp(- \mathrm{i} \cdot (\mathrm{i} z))}{\displaystyle 2 \mathrm{i}}}{\displaystyle \frac{\displaystyle \exp(\mathrm{i} \cdot (\mathrm{i} z)) + \exp(- \mathrm{i} \cdot (\mathrm{i} z))}{\displaystyle 2}} = \frac{\displaystyle \exp(z) - \exp(-z)}{\displaystyle \exp(z) + \exp(-z)}$  
+
+// to "center" the activation function  
+// sigmoid (0, 1)  
+// tanh (-1, 1)
+
+```python
+# Hyperbolic Tangent activation function
+keras.layers.Dense(units=..., activation="tanh", ...)
+```  
+ 
+## Layer  
+
+The (**hidden** or **output**) **layer** consists of several **neurons** of which the **activation function** is the same. The number of the **logits** within the **layer** is exactly the same as the number of the **neurons**. (There is no **neuron** within the **input layer**). 
 
 The **weights** of all **logits** within the layer is a N x U matrix (where the **bias** term is NOT included). The N is the length of one single input. The U is the number of the **neurons** in this **layer**. Each column of this N x U matrix presents the **weights** of each **neuron**.   
 
@@ -21,21 +60,39 @@ The **Param** returned by the **keras.Sequential.summary** is the number of all 
 ```python
 # Linear Regression
 # We have 7 linear transforms of the inputs
-tensorflow.keras.layers.Dense(units=7, activation="linear")
+keras.layers.Dense(units=7, activation="linear")
 
 # Logistic Regression
 # We have 7 linear hyperplanes (decision boundaries) of the inputs
 # We apply the sigmoid function to each of these 7 linear hyperplanes
-tensorflow.keras.layers.Dense(units=7, activation="sigmoid")
+keras.layers.Dense(units=7, activation="sigmoid")
 
 # Multinomial Logistic Regression
 # We have 7 classes  
 # We have 7 linear transforms (21 = 7 × 6 ÷ 2 linear hyperplanes / decision boundaries) of the inputs  
 # We apply the softmax function to the whole 7 linear tranforms of the inputs  
-tensorflow.keras.layers.Dense(units=7, activation="sigmoid")
+keras.layers.Dense(units=7, activation="sigmoid")
 ```
 
 Note that we apply the **softmax** **activation function** to the **whole** 7 **linear transforms** of the inputs instead of **each** of them. This is different from both **linear** and **sigmoid** **activation functions**.  
+
+### Convolution Layer  
+  
+For **Dense** layer, the **input_shape** (namely, the shape of one single training example) should be the 1D vector. This means that we have the **logit** $\displaystyle Z = Wx + b$.  
+
+However, for **Conv2D** layer, the **input_shape** can be the 2D (image).  
+
+For example, we have 
+```python
+keras.layers.Conv2D(filters=F, kernel_size=(M,N), input_shape=(H,W))
+```
+
+The **F** denotes the number of the **filters**. 
+
+For each pixel in W x H 2D image, we get the information of the vicinal M x N pixels and apply each of these F filters to them. This means that the shape of the **logit** of this **layer** is (W, H, F).  
+
+The shape of these **filters** of this **layer** should be (M, N, D) of which the **D** is the depth of the input of this **layer**. If the input of this **layer** is from another **Conv2D** layer, the **D** should the **F** of that **layer**.  
+
 
 ## Model  
 
@@ -45,17 +102,17 @@ The **intermediate layers** are called the **hidden layers**. The outputs of the
 
 The **final layer** is called the **output layer**. The outputs of the **output layers** are the **predictions**.  
 
-The **features** can also be called the **input layer**. But the number of the **layers** of the **model** means the number of both the **hidden layers** and the **output layer** (where the **input layer** is NOT included).  
+The **features** can also be called the **input layer**. But the number of the **layers** of the **model** means the number of both the **hidden layers** and the **output layer** (where the **input layer** is NOT included since there is no **neuron** within the **input layer**).  
 
 ```python
-tensorflow.keras.models.Sequential([
+keras.models.Sequential([
     # Hidden Layer 1
     # The "input_shape" defines the "input layer"
-    tensorflow.keras.layers.Dense(units=25, activation="sigmoid", input_shape=(n,)),
+    keras.layers.Dense(units=25, activation="sigmoid", input_shape=(n,)),
     # Hidden Layer 2
-    tensorflow.keras.layers.Dense(units=15, activation="sigmoid"),
+    keras.layers.Dense(units=15, activation="sigmoid"),
     # Output Layer
-    tensorflow.keras.layers.Dense(units=1, activation="sigmoid")
+    keras.layers.Dense(units=1, activation="sigmoid")
 ])
 ```  
 
@@ -63,7 +120,7 @@ tensorflow.keras.models.Sequential([
 
 We use $\displaystyle a^{[i]}$ to denote the **activation values** of the **hidden layer i**.  
 
-We still use $\displaystyle a^{[0]}$ to denote the output values of the **input layer**, although the they are NOT the **activation values**.  
+In addition to $\displaystyle x$, we also use $\displaystyle a^{[0]}$ to denote the output values (namely, **features**) of the **input layer**, although the they are NOT the **activation values** (since there is no **neuron** within the **input layer**).  
 
 We use $\displaystyle \theta_j^{[i]}$ to denote the **coefficients** of j-th **logit** within the **hidden layer i**.  
 
@@ -74,45 +131,6 @@ The $\displaystyle a_j^{[2]}$ denotes the j-th (j = 1 2 3 ... 15) component of t
 The $\displaystyle \theta_j^{[i]} a^{[1]}$ denotes the j-th **logit**  of **hidden layer 2**, and we apply the **activation function** **relu** to **each** of these 15 **logits** of the **hidden layer 2**.  
 
 The $\displaystyle a^{[1]}$ denotes the **whole** output of the **hidden layer 1** of which the number of the components is 25.  
-
-### Convolution Layer  
-  
-For **Dense** layer, the **input_shape** (namely, the shape of one single training example) should be the 1D vector. This means that we have the **logit** $\displaystyle Z = Wx + b$.  
-
-However, for **Conv2D** layer, the **input_shape** can be the 2D (image).  
-
-For example, we have 
-```python
-tensorflow.keras.layers.Conv2D(filters=F, kernel_size=(M,N), input_shape=(H,W))
-```
-
-The **F** denotes the number of the **filters**. 
-
-For each pixel in W x H 2D image, we get the information of the vicinal M x N pixels and apply each of these F filters to them. This means that the shape of the **logit** of this **layer** is (W, H, F).  
-
-The shape of these **filters** of this **layer** should be (M, N, D) of which the **D** is the depth of the input of this **layer**. If the input of this **layer** is from another **Conv2D** layer, the **D** should the **F** of that **layer**.  
-
-### ReLU (Rectified Linear Unit) Activation Function  
-
-The **hidden layer**, of which the **activation function** is **linear**, is equivalent to non-existence, since we can learn from mathematical that a linear function of a linear function is itself a linear function. This means that **linear** **activation function** should be avoided for the **hidden layer**.   
-
-However, the **sigmoid** **activation function** is also NOT a good choice for the **hidden layer**. Evidently, the amount of calculation of the **sigmoid** **activation function** is much more than the **linear** **activation function**. At the same time, the **sigmoid** **activation function** is almost flat for some places. We can learn from intuition that the **cost funtion** will consequently be flat for some places. This means that the gradient will be close to zero for some places, and this makes the **gradient descent** NOT efficient.  
-
-Thus, we introduce the **ReLU (Rectified Linear Unit)** **activation function** $\displaystyle a = \max (0, z)$ which is typically used for the **hidden layer**.  
-
-This means that the previous model source can be changed as the following.  
-
-```python
-tensorflow.keras.models.Sequential([
-    # Hidden Layer 1
-    # The "input_shape" defines the "input layer"
-    tensorflow.keras.layers.Dense(units=25, activation="relu", input_shape=(n,)),
-    # Hidden Layer 2
-    tensorflow.keras.layers.Dense(units=15, activation="relu"),
-    # Output Layer
-    tensorflow.keras.layers.Dense(units=1, activation="sigmoid")
-])
-```  
 
 ## Loss Function  
  
@@ -129,10 +147,10 @@ We can use the following source to complie the model and train the model by **gr
 
 ```python
 # Specify the Gradient Descent Optimizer and the Binary Cross Entropy Loss Function
-keras_model.compile(optimizer=tensorflow.keras.optimizers.SGD(learning_rate=alpha), loss=tensorflow.keras.losses.BinaryCrossentropy)
+keras_model.compile(optimizer=keras.optimizers.SGD(learning_rate=alpha), loss=keras.losses.BinaryCrossentropy)
 
 # The Gradient Descent Loop
-keras_history = keras_model.fit(X, y, epochs=iteration_count, callbacks=[ tensorflow.keras.callbacks.EarlyStopping(monitor='loss', min_delta=gamma)])
+keras_history = keras_model.fit(X, y, epochs=iteration_count, callbacks=[ keras.callbacks.EarlyStopping(monitor='loss', min_delta=gamma)])
 ```
 
 However, the more efficient approach is to output the **logits** of the **output layer** directly and enable the **from_logits=True** of the **loss function**.  In this way, the output of the **sigmoid** **activation function** is hidden from the user and can be treated as the **intermediate** values by the tensorflow. This means that the tensorflow can do more optimization. And the float numerical roundoff errors can also benifit from this optimization.  
@@ -140,19 +158,19 @@ However, the more efficient approach is to output the **logits** of the **output
 This means that the previous source can be changed as the following.  
 
 ```python
-tensorflow.keras.models.Sequential([
+keras.models.Sequential([
     # Hidden Layer 1
     # The "input_shape" defines the "input layer"
-    tensorflow.keras.layers.Dense(units=25, activation="relu", input_shape=(n,)),
+    keras.layers.Dense(units=25, activation="relu", input_shape=(n,)),
     # Hidden Layer 2
-    tensorflow.keras.layers.Dense(units=15, activation="relu"),
+    keras.layers.Dense(units=15, activation="relu"),
     # Output Layer
     # We output the **logits** of the **output layer** directly
-    tensorflow.keras.layers.Dense(units=1, activation="linear")
+    keras.layers.Dense(units=1, activation="linear")
 ])
 
 # We enable the "from_logits=True" of the loss function
-keras_model.compile(optimizer=tensorflow.keras.optimizers.SGD(learning_rate=alpha), loss=tensorflow.keras.losses.BinaryCrossentropy(from_logits=True))
+keras_model.compile(optimizer=keras.optimizers.SGD(learning_rate=alpha), loss=keras.losses.BinaryCrossentropy(from_logits=True))
 ```  
 
 When we perform the **inference**, we do NOT need to calcucalte the **sigmod** **activation function**.  According to the knowledge of the **decision boundary** of the logistic regression, we only need to check whether the **logits** are greater than zero.  
