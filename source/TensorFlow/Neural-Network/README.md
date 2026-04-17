@@ -191,7 +191,24 @@ logit_prediction = keras_model.predict(X_test)
 prediction = numpy.argmax(logit_prediction, axis=1)
 ```
 
-# Broadcasting  
+## Random Initialization  
+
+if the coefficients (kernel_initializer and bias_initializer) are initialized the same values, the training results of the neurals within the same layer should be exactly the same due to the symmetry.  
+
+Usually, we use random initial values to prevent redundancy. And we may use "seed" to reproduce the training results of the machine learning algorithm.  
+
+```python
+# Zero Initialization
+# keras.layers.Dense(units=..., activation=..., kernel_initializer="zeros", bias_initializer="zeros")
+
+# Random Initialization
+# "stddev=0.01" is to lower the initial values of the weights since the **sigmoid** is almost flat when the logit is too large and this can make the gradient descent inefficient
+# "seed=77" is to reproduce the training results  
+# "bias_initializer" can still be "zeros" since the different weights (namely, kernel_initializer) have already made the results different  
+keras.layers.Dense(units=..., activation=..., kernel_initializer=keras.initializers.RandomNormal(mean=0.0, stddev=0.01, seed=77), bias_initializer="zeros")
+```
+
+## Broadcasting  
 
 [numpy - tail compatibility](https://numpy.org/doc/stable/user/basics.broadcasting.html#)  
 [octave - bsxfun](https://octave.sourceforge.io/octave/function/bsxfun.html)  
@@ -219,9 +236,3 @@ n - column - the feature vector of one single training example
 forward propagation  
 
 // Train  
-
-if the coefficients (kernel_initializer and bias_initializer) are initialized the same values, the training results of the neurals within the same layer should be exactly the same due to the symmetry  
-
-Usually, we use random initial values to prevent redundancy. This makes it difficult to reproduce the training results of the machine learning algorithm.  
-
-
