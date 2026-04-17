@@ -76,6 +76,8 @@ keras.layers.Dense(units=7, activation="sigmoid")
 
 Note that we apply the **softmax** **activation function** to the **whole** 7 **linear transforms** of the inputs instead of **each** of them. This is different from both **linear** and **sigmoid** **activation functions**.  
 
+When we use W and b to denote the coefficients, the shape of W[i] is (neuron_count, input_count) and the shape of b[i] is (neuron_count, 1).  
+
 ### Convolution Layer  
   
 For **Dense** layer, the **input_shape** (namely, the shape of one single training example) should be the 1D vector. This means that we have the **logit** $\displaystyle Z = Wx + b$.  
@@ -118,7 +120,7 @@ keras.models.Sequential([
 
 ## Notation  
 
-We use $\displaystyle a^{[i]}$ to denote the **activation values** of the **hidden layer i**.  
+We use $\displaystyle a^{[i]}$ to denote the **activation** vector of the **hidden layer i** and use $\displaystyle a^{[i](k)}$ to denote the **activation** vector of the **hidden layer i** for the k-th traning example.  
 
 In addition to $\displaystyle x$, we also use $\displaystyle a^{[0]}$ to denote the output values (namely, **features**) of the **input layer**, although the they are NOT the **activation values** (since there is no **neuron** within the **input layer**).  
 
@@ -126,7 +128,7 @@ We use $\displaystyle \theta_j^{[i]}$ to denote the **coefficients** of j-th **l
 
 For example, we have $\displaystyle a_j^{[2]} = \mathop{\mathrm{relu}}(\theta_j^{[i]} a^{[1]})$.  
 
-The $\displaystyle a_j^{[2]}$ denotes the j-th (j = 1 2 3 ... 15) component of the **activation value** of the **hidden layer 2**.  
+The $\displaystyle a_j^{[2]}$ denotes the **activation value** output of the j-th (j = 1 2 3 ... 15) **neuron** of the **hidden layer 2**.  
 
 The $\displaystyle \theta_j^{[i]} a^{[1]}$ denotes the j-th **logit**  of **hidden layer 2**, and we apply the **activation function** **relu** to **each** of these 15 **logits** of the **hidden layer 2**.  
 
@@ -202,7 +204,7 @@ Usually, we use random initial values to prevent redundancy. And we may use "see
 # keras.layers.Dense(units=..., activation=..., kernel_initializer="zeros", bias_initializer="zeros")
 
 # Random Initialization
-# "stddev=0.01" is to lower the initial values of the weights since the **sigmoid** is almost flat when the logit is too large and this can make the gradient descent inefficient
+# "stddev=0.01" is to initialize the weights as **small** random numbers since the sigmoid is almost flat (gradient close to zero) when the logit is too large and this can make the gradient descent inefficient
 # "seed=77" is to reproduce the training results  
 # "bias_initializer" can still be "zeros" since the different weights (namely, kernel_initializer) have already made the results different  
 keras.layers.Dense(units=..., activation=..., kernel_initializer=keras.initializers.RandomNormal(mean=0.0, stddev=0.01, seed=77), bias_initializer="zeros")
