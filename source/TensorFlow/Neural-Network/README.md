@@ -124,6 +124,8 @@ We use $\displaystyle a^{[i]}$ to denote the **activation** vector of the **hidd
 
 In addition to $\displaystyle x$, we also use $\displaystyle a^{[0]}$ to denote the output values (namely, **features**) of the **input layer**, although the they are NOT the **activation values** (since there is no **neuron** within the **input layer**).  
 
+In addition to $\displaystyle \hat{y}$, we also use $\displaystyle a^{[m]}$ (m is the number of the **layers** of the **model** ) to denote the output values (namely, **predictions**) of the **output layer**.  
+
 We use $\displaystyle \theta_j^{[i]}$ to denote the **coefficients** of j-th **logit** within the **hidden layer i**.  
 
 For example, we have $\displaystyle a_j^{[2]} = \mathop{\mathrm{relu}}(\theta_j^{[i]} a^{[1]})$.  
