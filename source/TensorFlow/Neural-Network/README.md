@@ -1,4 +1,4 @@
-# (Shallow) Neural Network (NN)  
+# Neural Network (NN)  
 
 We will try to introduce the concepts of the **neural network** according to the [Keras](https://keras.io/) API.  
 
@@ -118,6 +118,13 @@ keras.models.Sequential([
 ])
 ```  
 
+## Depth Separation
+
+The "shallow" (namely, only 1 hidden layer) neural network may require **exponential** number of neurons (within the same layer) to achieve comparable accuracy to that of the "small" (number of neurons) L-layer "deep" neural network.  
+
+// intuition: circuit theory
+// activation function in ML -> XOR gate in circuit  
+
 ## Notation  
 
 We use $\displaystyle a^{[i]}$ to denote the **activation** vector of the **hidden layer i** and use $\displaystyle a^{[i](k)}$ to denote the **activation** vector of the **hidden layer i** for the k-th traning example.  
@@ -216,6 +223,31 @@ keras.layers.Dense(units=..., activation=..., kernel_initializer=keras.initializ
 
 [numpy - tail compatibility](https://numpy.org/doc/stable/user/basics.broadcasting.html#)  
 [octave - bsxfun](https://octave.sourceforge.io/octave/function/bsxfun.html)  
+
+
+## Hyperparameters vs Parameters
+
+The hyperparameters control the ultimate parameters.
+
+hyperparameters:  
+// optimizer weights:  
+//// iteration  
+//// learning rate  
+//// momentum  
+//// mini batch size  
+// N/A  
+//// number of the layers of the model    
+//// choice of activation function  
+// ~~model weights:~~  
+//// ~~normalization~~  
+// N/A  
+//// regularization  
+
+parameters:  
+// model weights:  
+//// neuron coefficients (namely, kernel + bias)  
+
+// NOTE: activation values // intermediate computation results // not hyperparameters or parameters  
 
 // ===============
 
