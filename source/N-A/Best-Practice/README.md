@@ -27,7 +27,7 @@ The **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ is to ch
 
 The **testing error** $\displaystyle \mathop{\mathrm{J_{test}}}$ is to evaluate the **generalization** error and avoid overly optimistic estimate.  
 
-### Underfitting & Overfitting
+### Underfitting & Overfitting (Occam's Razor)  
 
 We compare the **training error** $\displaystyle \mathop{\mathrm{J_{train}}}$ with the **baseline level performance** to judge whether the the model has high or low **bias**.  
 
