@@ -3,13 +3,15 @@
 
 ![](Iterative-loop-of-ML-developement.png)
 
-## Bias-Variance Tradeoff    
-
-### Error Metrics
+## Training Set, Dev(elopment) Set & Test Set  
 
 The **training data** can be divided into **training set**, **(cross) validation set** (namely, **dev(elopment) set**) and **test set**.  
 
-We can caculate the **error** for each of them, and we have **training error** $\displaystyle \mathop{\mathrm{J_{train}}}$, **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ and **testing error** $\displaystyle \mathop{\mathrm{J_{test}}}$.  
+When we do NOT need completely unbiased estimation of our model, we may only have **training set** and **dev(elopment) set**, and we do NOT have to have seperable **test set**. In this situation, some people may call **dev(elopment) set** as **test set** although **dev(elopment) set** is more correct terminology.  
+
+## Bias-Variance Tradeoff
+
+We can caculate the **error** metric for each of them, and we have **training error** $\displaystyle \mathop{\mathrm{J_{train}}}$, **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ and **testing error** $\displaystyle \mathop{\mathrm{J_{test}}}$.  
 
 For **linear regression**, we use the **mean squred error** which is exactly the same as the cost function without the **regularization term**.  
 
@@ -26,6 +28,8 @@ classification_error = numpy.sum(prediction != y) / m
 The **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ is to choose the best model.   
 
 The **testing error** $\displaystyle \mathop{\mathrm{J_{test}}}$ is to evaluate the **generalization** error and avoid overly optimistic estimate.  
+
+
 
 ### Underfitting & Overfitting (Occam's Razor)  
 
