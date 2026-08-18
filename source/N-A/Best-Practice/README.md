@@ -1,15 +1,19 @@
 
 # Best Practice  
 
-![](Iterative-loop-of-ML-developement.png)
+![](Iterative-loop-of-ML-developement.png)  
 
-## Training Set, Dev(elopment) Set & Test Set  
+## Bias & Variance  
+
+We prefer to use "Bias & Variance" rather than "Bias-Variance Tradeoff". Because training bigger network always reduces bias without hurting variance by and getting more data always reduces variance without hurting bias.  
+    
+### Training Set, Dev(elopment) Set & Test Set  
 
 The **training data** can be divided into **training set**, **(cross) validation set** (namely, **dev(elopment) set**) and **test set**.  
 
 When we do NOT need completely unbiased estimation of our model, we may only have **training set** and **dev(elopment) set**, and we do NOT have to have seperable **test set**. In this situation, some people may call **dev(elopment) set** as **test set** although **dev(elopment) set** is more correct terminology.  
 
-## Bias-Variance Tradeoff
+### Error Metrics  
 
 We can caculate the **error** metric for each of them, and we have **training error** $\displaystyle \mathop{\mathrm{J_{train}}}$, **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ and **testing error** $\displaystyle \mathop{\mathrm{J_{test}}}$.  
 
@@ -17,25 +21,23 @@ For **linear regression**, we use the **mean squred error** which is exactly the
 
 For **logistic regression**, we usually use the **classification error** which is the fraction of the misclassified **training examples**. But for the **skewed** **training examples**, we should use different **error metrics** which we will introduce later.  
 
-```python 
-assert y.shape[0] == m
+```python  
+assert y.shape[0] == m  
 
-prediction = keras_model.predict(X)
+prediction = keras_model.predict(X)  
 
-classification_error = numpy.sum(prediction != y) / m
+classification_error = numpy.sum(prediction != y) / m  
 
-```
+```  
 The **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ is to choose the best model.   
 
 The **testing error** $\displaystyle \mathop{\mathrm{J_{test}}}$ is to evaluate the **generalization** error and avoid overly optimistic estimate.  
-
-
 
 ### Underfitting & Overfitting (Occam's Razor)  
 
 We compare the **training error** $\displaystyle \mathop{\mathrm{J_{train}}}$ with the **baseline level performance** to judge whether the the model has high or low **bias**.  
 
-The common way is to choose the **human level peformance** as the **baseline level performance**.  
+The common way is to choose the **human level peformance**  (also called as **optimal error** or **Bayes error**) as the **baseline level performance**.  
 
 The **baseline level performance** can sometimes be high. For example, for the **speech reconition** problem, the **error** of the **human level performance** is about 10\%. This means that the model, of which the **training error** $\displaystyle \mathop{\mathrm{J_{train}}}$ is close to 10%, should still be considered as low **bias**.  
 
@@ -47,13 +49,13 @@ The model with the high **bias** is considered as **underfitting**, and the mode
 
 Techniquelly, the model can be both high **bias** and high **variance** at the same time. For example, the model is **underfitting** for some **training examples** and  **overfitting** for some other **training examples**. But this rarely happens in practice.  
 
-The model is considered as **good fit** (**just right**) if the model has both low **bias** and low **variance**.  
+The model is considered as **good fit** (**just right**) if the model has both low **bias** and low **variance**.   
 
-### Model Complexity  
+## Model Complexity  
 
 Here is the changing of the **bias** and the **variance** of the linear regression model related to the complexity of the model (namely, the **degree of polynomial** in the example).   
 
-![](Model-Complexity.png)
+![](Model-Complexity.png)  
 
 On the left, the model is too simple and is consequently **underfitting** (namely, high **bias**).  
 
@@ -63,7 +65,7 @@ Evidently, we should choose the value in the middle, where the **cross validatio
 
 In this example, we use the **degree of polynomial** to reflect the complexity of the model. Actually, there are also other aspects which can affect the complexity of the model, such as the number of the **features**.  
 
-### L2 regularization  
+## L2 regularization  
 
 Here is the changing of the **bias** and the **variance** of the linear regression model related to the **regularization parameter** $\displaystyle \lambda$ of the **L2 regularization (Ridge regularization)**.  
 
@@ -75,7 +77,7 @@ On the right, the **regularization parameter** $\displaystyle \lambda$ is too sm
 
 Evidently, we should choose the value in the middle, where the **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ is the minimum, as the **regularization parameter** $\displaystyle \lambda$ to find the best model.  
 
-### Training Data Size  
+## Training Data Size  
 
 The **learning curve** is the changing of the **bias** and the **variance** realted to the **training data** size (namely, the number of the **training examples**).  
 
@@ -91,11 +93,11 @@ This means that the **bias** of the model can NOT be reduced by providing more *
 
 For the model with high **variance** (namely, **overfitting**), the **training error** $\displaystyle \mathop{\mathrm{J_{train}}}$ is lower than the **human level perforamnce** and the **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ is higher than **human level perforamnce**.  
 
-Both the **training error** $\displaystyle \mathop{\mathrm{J_{train}}}$ and the **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ will be eventually close to the **human level perforamnce** when the **training data** size is large enough.
+Both the **training error** $\displaystyle \mathop{\mathrm{J_{train}}}$ and the **cross validation error** $\displaystyle \mathop{\mathrm{J_{CV}}}$ will be eventually close to the **human level perforamnce** when the **training data** size is large enough.  
 
-This means that the **variance** of the model can be reduced by providing more **training data**.
+This means that the **variance** of the model can be reduced by providing more **training data**.  
 
-### Neural Network  
+## Neural Network  
 
 ![](Neural-Network.png)  
 
@@ -107,7 +109,7 @@ But there is still limitation for the **nerual network**. The **nerual network**
 
 As we stated above, we usually use the **classification error** which is the fraction of the misclassified **training examples** for **logistic regression**.   
 
-However, the **training examples** can somtimes be really skewed. For example, the rare disease is a typical case of the **skewed** **training data**. We may have 99.5% negative class (y = 0) and 0.5% positive class (y = 1).
+However, the **training examples** can somtimes be really skewed. For example, the rare disease is a typical case of the **skewed** **training data**. We may have 99.5% negative class (y = 0) and 0.5% positive class (y = 1).  
 
 In this situation, the **classification error** may NOT work. For example, the **classification error** of our trained model is 1%. But the **classification error** of the really simple model $\displaystyle \hat{y} = 0$ is 0.5% which lower than our model. But evidently, this really simple model is absolutely wrong and should NOT be considered better than our trained model. This means that the **classification error** can NOT help us judge which model is better.  
 
