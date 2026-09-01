@@ -54,7 +54,25 @@ Fortunately, the **cross-entropy cost function** is **convex**.
 
 ## L2 Regularization (Ridge Regularization)  
 
-We can add the same **regularization term** $\displaystyle \frac{\lambda}{2 m} \sum_{j=2}^n \theta_j^2$ to the **cost function** to avoid the **overfitting**, just as what we do for the **linear regression**.  
+We can add the same (L2) **regularization term** $\displaystyle \frac{\lambda}{2 m} \sum_{j=2}^n \theta_j^2$ ("j = 2", bias excluded, weights only) to the **cost function** to avoid the **overfitting**, just as what we do for the **linear regression**.  
+
+We omit the **bias** from the **regularization term** (leaving only the **weights**). The weights are usually high-dimensional (especially in high-variance, overfitting models), whereas bias is just a single scalar. Therefore, in practice, regularizing the bias usually makes little difference.  
+
+Because the **Frobenius norm** of matrix  $\displaystyle \mathrm{{\| W \|}_F} = \sqrt{\sum_{i} \sum_{j} w_{ij}^2}$, we have the (L2) **regularization term** $\displaystyle \frac{\lambda}{2 m} {\mathrm{{\| W \|}_F}}^2$.  
+
+The cost with L2 regularization term is $\displaystyle \mathop{\mathrm{J}}(W) = \mathop{\mathrm{J_0}}(W) + \frac{\lambda}{2 m} {\mathrm{{\| W \|}_F}}^2$.  
+
+The gradient under L2 regularization is $\displaystyle \nabla {\mathrm{J}}(W) = \nabla {\mathrm{J_0}}(W) + \frac{\lambda}{m} W$.  
+
+During the gradient descent, we have  $\displaystyle W^{(t+1)} = W^{(t)} - \alpha \nabla \mathop{\mathrm{J}}(W^{(t)}) = W^{(t)} - \alpha \left( \nabla {\mathrm{J_0}}(W^{(t)}) + \frac{\lambda}{m} W^{(t)} \right) = \left(1 - \frac{\alpha \lambda}{m} \right) W^{(t)} - \alpha \nabla {\mathrm{J_0}}(W^{(t)})$.  
+
+Because $\displaystyle 1 - \frac{\alpha \lambda}{m}$ is less than one and greater than zero, the L2 regularization under (standard) gradient descent is also called **weight decay**.  
+
+## L1 regularization（Lasso regularization）  
+
+(L1) **regularization term** $\displaystyle \frac{\lambda}{2 m} \sum_{j=2}^n \| \theta_j \|$  
+
+L1 regularization produces sparse coefficients, meaning that many of the coefficients become zero. This sparsity can be useful for feature selection and model compression.    
 
 ## Multi-label Classificaton  
 
